@@ -1,7 +1,11 @@
 spring.application.name: lloyd-restful-service
 server:
   port: 8088
+
 logging:
   level:
     org.springframework: debug
 
+spring:
+  message:
+    basename: messages

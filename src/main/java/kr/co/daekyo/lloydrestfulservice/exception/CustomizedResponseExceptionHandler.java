@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -11,6 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice // 모든 컨트롤러가 실행될떄 참조하도록 설정
 public class CustomizedResponseExceptionHandler extends ResponseEntityExceptionHandler {
@@ -30,11 +33,20 @@ public class CustomizedResponseExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+//    @Override
+//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+//        ExceptionResponse exceptionResponse =
+////                new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
+//                new ExceptionResponse(new Date(), "Validation failed", ex.getBindingResult().toString());
+//        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+//    }
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        ExceptionResponse exceptionResponse =
-//                new ExceptionResponse(new Date(), ex.getMessage(), ex.getBindingResult().toString());
-                new ExceptionResponse(new Date(), "Validation faild", ex.getBindingResult().toString());
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+        String validationResults = fieldErrors.stream()
+                .map(FieldError::getDefaultMessage)
+                .collect(Collectors.joining(", "));
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validation failed", validationResults);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 }
