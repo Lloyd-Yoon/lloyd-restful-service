@@ -30,7 +30,7 @@ public class AdminUserController {
     //@GetMapping("/v1/users/{id}")  // 트위터에서 사용
     //@GetMapping(value = "/users/{id}", params = "version=1") //아마존에서 사용
     //@GetMapping(value = "/users/{id}", headers = "X-API-VERSION=1") // MS에서 사용
-    @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json") // 깃허브에서 사용 
+    @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json") // 깃허브에서 사용
     public MappingJacksonValue retriveAllUsers4Admin (@PathVariable int id) {
         User user = service.findOne(id);
 

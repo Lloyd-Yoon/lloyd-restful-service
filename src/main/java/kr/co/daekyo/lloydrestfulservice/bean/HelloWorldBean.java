@@ -7,7 +7,4 @@ import lombok.Data;
 @AllArgsConstructor // 생성자 자동생성 어노테이션(lombok)
 public class HelloWorldBean {
     private String message;
-//    public HelloWorldBean(String message) {
-//        this.message = message;
-//    }
 }

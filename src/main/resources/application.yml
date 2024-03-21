@@ -9,3 +9,20 @@ logging:
 spring:
   message:
     basename: messages
+
+#  security:
+#    user:
+#      name: lloyd
+#      password: 1234
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
