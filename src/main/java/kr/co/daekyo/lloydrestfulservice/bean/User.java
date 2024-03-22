@@ -2,6 +2,10 @@ package kr.co.daekyo.lloydrestfulservice.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,8 +17,12 @@ import java.util.Date;
 @AllArgsConstructor
 @JsonIgnoreProperties(value = {"password", "ssn"})
 @Schema(description = "사용자 상세 정보를 위한 도메인 객체")
+@Entity  // class이름으로 테이블 생성
+@Table(name = "users") // 테이블 이름 지정
 public class User {
     @Schema(title = "사용자 ID", description = "사용자ID는 자동생성됩니다.")
+    @Id // primary key(id) 지정
+    @GeneratedValue // 자동생성 컬럼
     private Integer id;
 
     @Schema(title = "사용자 이름", description = "사용자 이름을 입력해주세요(최소 2글자 이상).")

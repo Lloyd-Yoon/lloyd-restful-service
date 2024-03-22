@@ -9,6 +9,20 @@ logging:
 spring:
   message:
     basename: messages
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+#   resouecrs/data.sql 읽어서 데이타 적재 처리
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
 
 #  security:
 #    user:
