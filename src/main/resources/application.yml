@@ -7,7 +7,7 @@ logging:
     org.springframework: debug
 
 spring:
-  message:
+  messages:
     basename: messages
   datasource:
     url: jdbc:h2:mem:testdb
@@ -23,7 +23,6 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
-
 #  security:
 #    user:
 #      name: lloyd
